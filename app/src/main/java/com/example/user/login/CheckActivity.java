@@ -61,10 +61,9 @@ public class CheckActivity extends AppCompatActivity {
         ArrayList<String> ar = new ArrayList<String>();
 
         String[] tokens = s.split(" ");
-        for (String token:tokens) {
+        for (String token : tokens) {
             ar.add("你在" + token + "時登入過");
         }
-
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ar);
 
@@ -88,6 +87,7 @@ public class CheckActivity extends AppCompatActivity {
         String loginid = bag.getString("loginid");
         String password = bag.getString("password");
         Boolean record =bag.getBoolean("record");
+        Boolean times =bag.getBoolean("times");
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH點mm分");
         Date date = new Date();
@@ -104,13 +104,16 @@ public class CheckActivity extends AppCompatActivity {
             setting.edit().putString("loginid",loginid).commit();
             setting.edit().putString("password",password).commit();
             setting.edit().putBoolean("record",record).commit();
+            setting.edit().putBoolean("times",times).commit();
 
             SharedPreferences history = getSharedPreferences("history",MODE_PRIVATE);
             history.edit().putString("date",s + " " + dateFormat.format(date)).commit();
 
             s = history.getString("date", dateFormat.format(date));
 
-
+            if(times==false) {
+                s = "";
+            }
 
 
         }else{

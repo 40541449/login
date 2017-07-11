@@ -35,13 +35,14 @@ public class MainActivity extends AppCompatActivity {
         myPassword = setting.getString("password", "");
         checkBox1 = (CheckBox)findViewById(R.id.checkBox1);
         checkBox1.setChecked(setting.getBoolean("record", false));
+        checkBox2 = (CheckBox)findViewById(R.id.checkBox2);
+        checkBox2.setChecked(setting.getBoolean("times", false));
     }
 
     public void findview(){
         loginid = (EditText)findViewById(R.id.loginid);
         password = (EditText)findViewById(R.id.password);
         submit = (Button)findViewById(R.id.submit);
-        checkBox2 = (CheckBox)findViewById(R.id.checkBox2);
 
         if(checkBox1.isChecked()==true) {
             loginid.setText(myLoginid);
@@ -86,10 +87,8 @@ public class MainActivity extends AppCompatActivity {
             Bundle bag = new Bundle();
             bag.putString("loginid", loginid.getText().toString());
             bag.putString("password", password.getText().toString());
-            if(checkBox1.isChecked()==true)
-                bag.putBoolean("record", true);
-            else
-                bag.putBoolean("record", false);
+            bag.putBoolean("record", checkBox1.isChecked());
+            bag.putBoolean("times", checkBox2.isChecked());
 
             intent.putExtras(bag);
             startActivity(intent);
