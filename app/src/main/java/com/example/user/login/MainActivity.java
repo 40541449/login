@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,9 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
     EditText loginid,password;
     Button submit;
-
     String myLoginid, myPassword;
-
+    CheckBox checkBox1, checkBox2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +33,20 @@ public class MainActivity extends AppCompatActivity {
 
         myLoginid = setting.getString("loginid", "");
         myPassword = setting.getString("password", "");
-
+        checkBox1 = (CheckBox)findViewById(R.id.checkBox1);
+        checkBox1.setChecked(setting.getBoolean("record", false));
     }
 
     public void findview(){
         loginid = (EditText)findViewById(R.id.loginid);
         password = (EditText)findViewById(R.id.password);
         submit = (Button)findViewById(R.id.submit);
+        checkBox2 = (CheckBox)findViewById(R.id.checkBox2);
 
-        loginid.setText(myLoginid);
-        password.setText(myPassword);
+        if(checkBox1.isChecked()==true) {
+            loginid.setText(myLoginid);
+            password.setText(myPassword);
+        }
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
             Bundle bag = new Bundle();
             bag.putString("loginid", loginid.getText().toString());
             bag.putString("password", password.getText().toString());
+            if(checkBox1.isChecked()==true)
+                bag.putBoolean("record", true);
+            else
+                bag.putBoolean("record", false);
 
             intent.putExtras(bag);
             startActivity(intent);

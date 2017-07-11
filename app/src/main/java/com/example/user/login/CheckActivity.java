@@ -87,10 +87,10 @@ public class CheckActivity extends AppCompatActivity {
         Bundle bag = intent.getExtras();
         String loginid = bag.getString("loginid");
         String password = bag.getString("password");
+        Boolean record =bag.getBoolean("record");
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH點mm分");
         Date date = new Date();
-
 
 
         if(loginid.equals("nfu") && password.equals("nfu")) {
@@ -103,6 +103,7 @@ public class CheckActivity extends AppCompatActivity {
             SharedPreferences setting = getSharedPreferences("login",MODE_PRIVATE);
             setting.edit().putString("loginid",loginid).commit();
             setting.edit().putString("password",password).commit();
+            setting.edit().putBoolean("record",record).commit();
 
             SharedPreferences history = getSharedPreferences("history",MODE_PRIVATE);
             history.edit().putString("date",s + " " + dateFormat.format(date)).commit();
